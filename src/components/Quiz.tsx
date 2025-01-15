@@ -138,7 +138,7 @@ const Quiz = () => {
                 {currentStep === 2 && (
                   <div className="space-y-4">
                     <h3 className="text-xl font-semibold">Какие функции необходимы?</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <RadioGroup defaultValue="auth" className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {[
                         "Авторизация пользователей",
                         "Интеграция с CRM",
@@ -148,7 +148,7 @@ const Quiz = () => {
                         "API интеграции"
                       ].map((feature) => (
                         <div key={feature} className="relative">
-                          <RadioGroupItem value={feature} id={feature} className="peer sr-only" />
+                          <RadioGroupItem value={feature.toLowerCase()} id={feature} className="peer sr-only" />
                           <label
                             htmlFor={feature}
                             className="block p-4 border-2 rounded-xl cursor-pointer hover:border-primary transition-colors peer-checked:border-primary peer-checked:bg-primary/5"
@@ -157,7 +157,7 @@ const Quiz = () => {
                           </label>
                         </div>
                       ))}
-                    </div>
+                    </RadioGroup>
                   </div>
                 )}
 
