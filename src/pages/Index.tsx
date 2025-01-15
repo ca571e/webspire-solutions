@@ -3,6 +3,10 @@ import Hero from "../components/Hero";
 import ProjectProcess from "../components/ProjectProcess";
 import Services from "../components/Services";
 import Team from "../components/Team";
+import Portfolio from "../components/Portfolio";
+import Clients from "../components/Clients";
+import ContentHub from "../components/ContentHub";
+import Quiz from "../components/Quiz";
 
 const Index = () => {
   return (
@@ -12,6 +16,10 @@ const Index = () => {
       <ProjectProcess />
       <Services />
       <Team />
+      <Portfolio />
+      <Clients />
+      <ContentHub />
+      <Quiz />
     </div>
   );
 };
