@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Progress } from "./ui/progress";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Checkbox } from "./ui/checkbox";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { useToast } from "./ui/use-toast";
+import { ShoppingBag, Users, Network, Database, MoreHorizontal } from "lucide-react";
 
 const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -24,87 +24,135 @@ const Quiz = () => {
     });
   };
 
+  const projectTypes = [
+    { icon: <ShoppingBag className="w-8 h-8" />, label: "Электронная коммерция" },
+    { icon: <Users className="w-8 h-8" />, label: "Обслуживание клиентов" },
+    { icon: <Network className="w-8 h-8" />, label: "Интранет" },
+    { icon: <Database className="w-8 h-8" />, label: "Big data" },
+    { icon: <MoreHorizontal className="w-8 h-8" />, label: "Другой" },
+  ];
+
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <Card className="p-6">
-          <CardHeader>
-            <CardTitle className="text-3xl font-bold text-center">
-              Оставьте заявку на разработку проекта
-            </CardTitle>
-            <Progress value={progress} className="mt-6" />
-          </CardHeader>
+      <div className="container mx-auto px-4 max-w-5xl">
+        <Card className="p-8 border-2 border-primary/20 rounded-3xl">
           <CardContent>
+            <div className="mb-8">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-primary">ШАГ {currentStep} ИЗ 3</span>
+                <Progress value={progress} className="w-32" />
+              </div>
+              <h2 className="text-4xl font-bold mb-12">
+                {currentStep === 1 && "ВЫБЕРИТЕ ТИП ВАШЕГО ПРОЕКТА"}
+                {currentStep === 2 && "ВЫБЕРИТЕ НЕОБХОДИМЫЕ ФУНКЦИИ"}
+                {currentStep === 3 && "УКАЖИТЕ БЮДЖЕТ ПРОЕКТА"}
+              </h2>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-8">
               {currentStep === 1 && (
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Какой тип проекта вас интересует?</h3>
-                  <RadioGroup defaultValue="website">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="website" id="website" />
-                      <label htmlFor="website">Веб-сайт</label>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="col-span-2">
+                    <RadioGroup defaultValue="ecommerce" className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {projectTypes.map((type) => (
+                        <div key={type.label} className="relative">
+                          <RadioGroupItem
+                            value={type.label.toLowerCase()}
+                            id={type.label}
+                            className="peer sr-only"
+                          />
+                          <label
+                            htmlFor={type.label}
+                            className="flex flex-col items-center justify-center p-6 border-2 rounded-xl cursor-pointer hover:border-primary transition-colors peer-checked:border-primary peer-checked:bg-primary/5"
+                          >
+                            <div className="text-primary mb-3">{type.icon}</div>
+                            <span className="text-sm font-medium text-center">{type.label}</span>
+                          </label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </div>
+                  <div className="bg-gray-50 p-6 rounded-xl">
+                    <h3 className="text-lg font-semibold mb-4">Ваш проект</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-sm text-gray-500">Тип</label>
+                        <div className="h-8 bg-white rounded border"></div>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-500">Описание</label>
+                        <div className="h-20 bg-white rounded border"></div>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-500">Бюджет</label>
+                        <div className="h-8 bg-white rounded border"></div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="app" id="app" />
-                      <label htmlFor="app">Мобильное приложение</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="ecommerce" id="ecommerce" />
-                      <label htmlFor="ecommerce">Интернет-магазин</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="other" id="other" />
-                      <label htmlFor="other">Другое</label>
-                    </div>
-                  </RadioGroup>
-                  <Button onClick={handleNext} className="w-full">Далее</Button>
+                  </div>
                 </div>
               )}
 
               {currentStep === 2 && (
                 <div className="space-y-4">
                   <h3 className="text-xl font-semibold">Какие функции необходимы?</h3>
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {[
                       "Авторизация пользователей",
                       "Интеграция с CRM",
                       "Онлайн-оплата",
-                      "Административная панель"
+                      "Административная панель",
+                      "Аналитика",
+                      "API интеграции"
                     ].map((feature) => (
-                      <div key={feature} className="flex items-center space-x-2">
-                        <Checkbox id={feature} />
-                        <label htmlFor={feature}>{feature}</label>
+                      <div key={feature} className="relative">
+                        <RadioGroupItem value={feature} id={feature} className="peer sr-only" />
+                        <label
+                          htmlFor={feature}
+                          className="block p-4 border-2 rounded-xl cursor-pointer hover:border-primary transition-colors peer-checked:border-primary peer-checked:bg-primary/5"
+                        >
+                          {feature}
+                        </label>
                       </div>
                     ))}
                   </div>
-                  <Button onClick={handleNext} className="w-full">Далее</Button>
                 </div>
               )}
 
               {currentStep === 3 && (
                 <div className="space-y-4">
                   <h3 className="text-xl font-semibold">Предполагаемый бюджет проекта</h3>
-                  <RadioGroup defaultValue="budget1">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="budget1" id="budget1" />
-                      <label htmlFor="budget1">До 100 000 ₽</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="budget2" id="budget2" />
-                      <label htmlFor="budget2">100 000 - 300 000 ₽</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="budget3" id="budget3" />
-                      <label htmlFor="budget3">300 000 - 500 000 ₽</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="budget4" id="budget4" />
-                      <label htmlFor="budget4">Более 500 000 ₽</label>
-                    </div>
+                  <RadioGroup defaultValue="budget1" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                      { value: "budget1", label: "До 100 000 ₽" },
+                      { value: "budget2", label: "100 000 - 300 000 ₽" },
+                      { value: "budget3", label: "300 000 - 500 000 ₽" },
+                      { value: "budget4", label: "Более 500 000 ₽" }
+                    ].map((budget) => (
+                      <div key={budget.value} className="relative">
+                        <RadioGroupItem value={budget.value} id={budget.value} className="peer sr-only" />
+                        <label
+                          htmlFor={budget.value}
+                          className="block p-4 border-2 rounded-xl cursor-pointer hover:border-primary transition-colors peer-checked:border-primary peer-checked:bg-primary/5"
+                        >
+                          {budget.label}
+                        </label>
+                      </div>
+                    ))}
                   </RadioGroup>
-                  <Button type="submit" className="w-full">Отправить заявку</Button>
                 </div>
               )}
+
+              <div className="flex justify-end">
+                {currentStep < 3 ? (
+                  <Button onClick={handleNext} className="px-8">
+                    Далее
+                  </Button>
+                ) : (
+                  <Button type="submit" className="px-8">
+                    Отправить заявку
+                  </Button>
+                )}
+              </div>
             </form>
           </CardContent>
         </Card>
