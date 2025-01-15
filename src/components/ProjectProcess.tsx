@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChessKing, ChessPawn } from 'lucide-react';
 
 const steps = [
   {
@@ -47,10 +47,23 @@ const ProjectProcess = () => {
                 }`}
                 onClick={() => setActiveStep(index)}
               >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${
-                  index === activeStep ? 'bg-primary text-white' : 'bg-gray-200'
-                }`}>
-                  {index + 1}
+                <div 
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 relative ${
+                    index === activeStep ? 'bg-primary text-white' : 'bg-gray-200'
+                  }`}
+                  style={{
+                    '--move-distance': `${(index - activeStep) * 100}%`
+                  } as React.CSSProperties}
+                >
+                  {index === steps.length - 1 && activeStep === index ? (
+                    <ChessKing className="w-6 h-6 animate-pawn-promote" />
+                  ) : (
+                    <ChessPawn 
+                      className={`w-6 h-6 ${
+                        index === activeStep ? 'animate-pawn-move' : ''
+                      }`}
+                    />
+                  )}
                 </div>
                 <p className="text-sm text-center">{step.title.split(' ')[0]}</p>
               </div>
@@ -75,14 +88,14 @@ const ProjectProcess = () => {
             <button 
               onClick={() => setActiveStep(prev => Math.max(0, prev - 1))}
               disabled={activeStep === 0}
-              className="p-2 rounded-full bg-gray-100 disabled:opacity-50"
+              className="p-2 rounded-full bg-gray-100 disabled:opacity-50 hover:bg-gray-200 transition-colors"
             >
               <ArrowLeft className="w-6 h-6" />
             </button>
             <button 
               onClick={() => setActiveStep(prev => Math.min(steps.length - 1, prev + 1))}
               disabled={activeStep === steps.length - 1}
-              className="p-2 rounded-full bg-gray-100 disabled:opacity-50"
+              className="p-2 rounded-full bg-gray-100 disabled:opacity-50 hover:bg-gray-200 transition-colors"
             >
               <ArrowRight className="w-6 h-6" />
             </button>
