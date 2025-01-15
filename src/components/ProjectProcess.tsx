@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, ChessKing, ChessPawn } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Crown, Circle } from 'lucide-react';
 
 const steps = [
   {
@@ -56,9 +56,9 @@ const ProjectProcess = () => {
                   } as React.CSSProperties}
                 >
                   {index === steps.length - 1 && activeStep === index ? (
-                    <ChessKing className="w-6 h-6 animate-pawn-promote" />
+                    <Crown className="w-6 h-6 animate-pawn-promote" />
                   ) : (
-                    <ChessPawn 
+                    <Circle 
                       className={`w-6 h-6 ${
                         index === activeStep ? 'animate-pawn-move' : ''
                       }`}
