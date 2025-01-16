@@ -23,13 +23,26 @@ const Quiz = () => {
     setProgress((prev) => Math.max(prev - 33, 33));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-    toast({
-      title: "Заявка отправлена",
-      description: "Мы свяжемся с вами в ближайшее время",
-    });
+    
+    try {
+      // Here you would typically make an API call
+      // For now we'll just simulate it with a timeout
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Заявка успешно отправлена",
+        description: "Мы свяжемся с вами в ближайшее время для обсуждения деталей.",
+      });
+    } catch (error) {
+      toast({
+        title: "Ошибка при отправке",
+        description: "Пожалуйста, попробуйте еще раз позже.",
+        variant: "destructive",
+      });
+    }
   };
 
   const projectTypes = [

@@ -7,11 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { portfolioData } from "@/data/portfolio";
+import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
 
 const PortfolioDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const currentProject = portfolioData.find(p => p.id === Number(id));
   const currentIndex = portfolioData.findIndex(p => p.id === Number(id));
@@ -30,55 +32,88 @@ const PortfolioDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-16">
-      <div className="container mx-auto px-4">
-        <div className="mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate("/")}
-            className="mb-4"
-          >
-            ← Назад
-          </Button>
-          <h1 className="text-4xl font-bold mb-4">{currentProject.title}</h1>
-          <p className="text-lg text-gray-600 mb-8">{currentProject.description}</p>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <div className="relative h-[60vh] bg-black">
+        <img 
+          src={currentProject.mainImage} 
+          alt={currentProject.title}
+          className="w-full h-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-5xl font-bold mb-4">{currentProject.title}</h1>
+            <p className="text-xl max-w-2xl mx-auto">{currentProject.description}</p>
+          </div>
         </div>
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          <div className="space-y-4">
-            <img 
-              src={currentProject.mainImage} 
-              alt={currentProject.title}
-              className="w-full rounded-lg shadow-lg"
-            />
-            <div className="grid grid-cols-2 gap-4">
-              {currentProject.gallery?.map((img, index) => (
-                <img 
-                  key={index}
-                  src={img}
-                  alt={`Gallery ${index + 1}`}
-                  className="w-full h-48 object-cover rounded-lg shadow-md"
-                />
-              ))}
+      <div className="container mx-auto px-4 py-16">
+        <Button 
+          variant="ghost" 
+          onClick={() => navigate("/")}
+          className="mb-8"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Назад к проектам
+        </Button>
+
+        {/* Project Details */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="md:col-span-2 space-y-8">
+            <div className="prose prose-lg max-w-none">
+              <h2 className="text-3xl font-bold mb-4">О проекте</h2>
+              <p>{currentProject.description}</p>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Технологии</h3>
+              <div className="flex flex-wrap gap-2">
+                {currentProject.tech.split(", ").map((tech, index) => (
+                  <span
+                    key={index}
+                    className="px-4 py-2 rounded-full bg-primary/10 text-primary"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Задачи</h3>
+              <ul className="grid md:grid-cols-2 gap-4">
+                {currentProject.tasks?.map((task, index) => (
+                  <li 
+                    key={index}
+                    className="flex items-start gap-2 p-4 rounded-lg bg-white shadow-sm"
+                  >
+                    <span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                      {index + 1}
+                    </span>
+                    {task}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-2xl font-semibold mb-4">О проекте</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium mb-2">Технологии:</h4>
-                  <p className="text-gray-600">{currentProject.tech}</p>
-                </div>
-                <div>
-                  <h4 className="font-medium mb-2">Задачи:</h4>
-                  <ul className="list-disc list-inside text-gray-600">
-                    {currentProject.tasks?.map((task, index) => (
-                      <li key={index}>{task}</li>
-                    ))}
-                  </ul>
-                </div>
+              <h3 className="text-xl font-bold mb-4">Ссылки на проект</h3>
+              <div className="space-y-3">
+                <Button variant="outline" className="w-full" asChild>
+                  <a href={currentProject.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Открыть сайт
+                  </a>
+                </Button>
+                <Button variant="outline" className="w-full" asChild>
+                  <a href={currentProject.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-4 w-4" />
+                    Исходный код
+                  </a>
+                </Button>
               </div>
             </Card>
 
@@ -114,18 +149,53 @@ const PortfolioDetail = () => {
           </div>
         </div>
 
+        {/* Gallery */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold mb-6">Галерея проекта</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {currentProject.gallery?.map((img, index) => (
+              <Dialog key={index}>
+                <DialogTrigger asChild>
+                  <div 
+                    className="aspect-video rounded-lg overflow-hidden cursor-pointer
+                      transition-transform duration-300 hover:scale-105"
+                  >
+                    <img
+                      src={img}
+                      alt={`Gallery ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl">
+                  <img
+                    src={img}
+                    alt={`Gallery ${index + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                </DialogContent>
+              </Dialog>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation */}
         <div className="flex justify-between items-center">
           <Button
             variant="outline"
             onClick={() => navigate(`/portfolio/${prevProject.id}`)}
+            className="group"
           >
-            ← {prevProject.title}
+            <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+            {prevProject.title}
           </Button>
           <Button
             variant="outline"
             onClick={() => navigate(`/portfolio/${nextProject.id}`)}
+            className="group"
           >
-            {nextProject.title} →
+            {nextProject.title}
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       </div>
