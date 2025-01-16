@@ -61,5 +61,62 @@ export const portfolioData = [
     ],
     liveUrl: "#",
     githubUrl: "#"
+  },
+  {
+    id: 4,
+    title: "Платформа для онлайн-обучения",
+    description: "Интерактивная платформа для дистанционного образования с видеоконференциями и тестированием.",
+    tech: "Vue.js, Django, PostgreSQL, WebRTC",
+    mainImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2370&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2424&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2372&auto=format&fit=crop"
+    ],
+    tasks: [
+      "Разработка системы видеоконференций",
+      "Создание интерактивных тестов",
+      "Система оценивания",
+      "Личный кабинет"
+    ],
+    liveUrl: "#",
+    githubUrl: "#"
+  },
+  {
+    id: 5,
+    title: "CRM система для логистики",
+    description: "Комплексное решение для управления логистическими процессами и отслеживания грузов.",
+    tech: "Angular, .NET Core, SQL Server",
+    mainImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2370&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2424&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2372&auto=format&fit=crop"
+    ],
+    tasks: [
+      "Автоматизация процессов",
+      "GPS трекинг",
+      "Аналитика и отчеты",
+      "Оптимизация маршрутов"
+    ],
+    liveUrl: "#",
+    githubUrl: "#"
+  },
+  {
+    id: 6,
+    title: "Система умного дома",
+    description: "IoT решение для автоматизации домашних процессов и управления устройствами.",
+    tech: "React.js, Node.js, MQTT, MongoDB",
+    mainImage: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?q=80&w=2370&auto=format&fit=crop",
+    gallery: [
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2424&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2372&auto=format&fit=crop"
+    ],
+    tasks: [
+      "Интеграция IoT устройств",
+      "Мобильное управление",
+      "Сценарии автоматизации",
+      "Мониторинг энергопотребления"
+    ],
+    liveUrl: "#",
+    githubUrl: "#"
   }
 ];

@@ -7,15 +7,47 @@ const articles = [
     title: "Растровая и векторная графика: отличия, применение и способы трассировки изображения",
     description: "Растровая и векторная графика → Применение векторной графики по сравнению с растровой → Различие векторной и растровой графики",
     date: "24.12.2024",
-    url: "http://web-valley.ru/articles/chem-otlichaetsya-vektornaya-grafika-ot-rastrovoj",
+    url: "#",
   },
-  // ... остальные статьи
+  {
+    tags: ["Разработка", "Frontend"],
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+    title: "Современные подходы к разработке веб-приложений",
+    description: "Обзор актуальных технологий и методологий в веб-разработке. Лучшие практики и инструменты для создания современных приложений.",
+    date: "22.12.2024",
+    url: "#",
+  },
+  {
+    tags: ["UX/UI", "Дизайн"],
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5",
+    title: "Принципы эффективного UX дизайна",
+    description: "Ключевые принципы создания удобных интерфейсов. Как сделать продукт интуитивно понятным и привлекательным для пользователей.",
+    date: "20.12.2024",
+    url: "#",
+  },
+  {
+    tags: ["Маркетинг", "SEO"],
+    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a",
+    title: "SEO оптимизация в 2024 году",
+    description: "Актуальные методы продвижения сайтов. Что работает сейчас и как подготовиться к будущим изменениям алгоритмов.",
+    date: "18.12.2024",
+    url: "#",
+  }
 ];
 
 const ContentHub = () => {
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-white relative overflow-hidden">
+      {/* Pattern Background */}
+      <div className="absolute inset-0 opacity-5" 
+        style={{
+          backgroundImage: `url('/lovable-uploads/95f03601-cf4d-43c4-a569-1aa7d06c7d87.png')`,
+          backgroundSize: '400px',
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-4">Контент-хаб</h1>
           <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
@@ -26,7 +58,7 @@ const ContentHub = () => {
             {articles.map((article, index) => (
               <article 
                 key={index} 
-                className="group bg-background rounded-xl overflow-hidden shadow-lg transition-all duration-300
+                className="group bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-all duration-300
                   hover:shadow-xl hover:-translate-y-1"
               >
                 <a href={article.url} className="block">

@@ -7,8 +7,17 @@ const Portfolio = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-16 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-background relative overflow-hidden">
+      {/* Pattern Background */}
+      <div className="absolute inset-0 opacity-5 rotate-45" 
+        style={{
+          backgroundImage: `url('/lovable-uploads/95f03601-cf4d-43c4-a569-1aa7d06c7d87.png')`,
+          backgroundSize: '400px',
+          backgroundRepeat: 'repeat',
+        }}
+      />
+      
+      <div className="container mx-auto px-4 relative">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">Наши последние проекты</h2>
           <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
@@ -22,7 +31,7 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg
+                className="group cursor-pointer bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg
                   transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
                 onClick={() => navigate(`/portfolio/${project.id}`)}
               >
