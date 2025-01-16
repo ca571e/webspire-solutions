@@ -60,7 +60,7 @@ const Quiz = () => {
           <Card className="p-8 border-2 border-primary/20 rounded-3xl">
             <CardContent className="flex flex-col items-center justify-center py-12">
               <div className="mb-8">
-                <Crown className="w-16 h-16 text-primary animate-pawn-promote" />
+                <Crown className="w-16 h-16 text-primary animate-bounce" />
               </div>
               <h2 className="text-3xl font-bold text-center mb-4">Ваша заявка принята!</h2>
               <p className="text-gray-600 text-center mb-8">
@@ -84,7 +84,7 @@ const Quiz = () => {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <Circle className={`w-6 h-6 text-primary ${currentStep === 3 ? 'animate-pawn-promote' : ''}`} />
+                  <Circle className={`w-6 h-6 text-primary ${currentStep === 3 ? 'animate-bounce' : ''}`} />
                   <span className="text-sm font-medium text-primary">ШАГ {currentStep} ИЗ 3</span>
                 </div>
                 <Progress value={progress} className="w-32" />
@@ -206,7 +206,7 @@ const Quiz = () => {
                   )}
                   <div className="ml-auto">
                     {currentStep < 3 ? (
-                      <Button onClick={handleNext} className="px-8">
+                      <Button type="button" onClick={handleNext} className="px-8">
                         Далее
                       </Button>
                     ) : (

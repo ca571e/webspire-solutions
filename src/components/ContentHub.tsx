@@ -48,7 +48,7 @@ const ContentHub = () => {
             Полезные статьи и материалы для развития вашего бизнеса
           </p>
           
-          <div className="grid gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article) => (
               <article 
                 key={article.id} 
@@ -56,50 +56,43 @@ const ContentHub = () => {
                   hover:shadow-xl hover:-translate-y-1 cursor-pointer"
                 onClick={() => navigate(`/article/${article.id}`)}
               >
-                <div className="grid md:grid-cols-5 gap-6 p-6">
-                  <div className="md:col-span-2">
-                    <div className="relative aspect-video md:aspect-square rounded-lg overflow-hidden">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-full object-cover transition-transform duration-500
-                          group-hover:scale-110"
-                      />
-                      <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                        {article.tags.map((tag, tagIndex) => (
-                          <span
-                            key={tagIndex}
-                            className="flex items-center gap-1 bg-white/90 backdrop-blur-sm text-primary 
-                              px-3 py-1 rounded-full text-sm font-medium"
-                          >
-                            <Tag className="w-3 h-3" />
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                <div className="aspect-video relative overflow-hidden">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-full object-cover transition-transform duration-500
+                      group-hover:scale-110"
+                  />
+                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                    {article.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        className="flex items-center gap-1 bg-white/90 backdrop-blur-sm text-primary 
+                          px-3 py-1 rounded-full text-sm font-medium"
+                      >
+                        <Tag className="w-3 h-3" />
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  
-                  <div className="md:col-span-3 flex flex-col">
-                    <div className="flex-grow">
-                      <div className="flex items-start justify-between gap-4">
-                        <h2 className="text-xl font-semibold mb-3 group-hover:text-primary
-                          transition-colors duration-300">
-                          {article.title}
-                        </h2>
-                        <span className="text-primary opacity-0 group-hover:opacity-100
-                          transition-opacity duration-300">
-                          <ArrowUpRight className="w-6 h-6" />
-                        </span>
-                      </div>
-                      <p className="text-gray-600 mb-4 line-clamp-3">{article.description}</p>
-                    </div>
-                    
-                    <time className="flex items-center gap-2 text-sm text-gray-500">
-                      <Calendar className="w-4 h-4" />
-                      {article.date}
-                    </time>
+                </div>
+                
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="text-lg font-semibold mb-2 group-hover:text-primary
+                      transition-colors duration-300 line-clamp-2">
+                      {article.title}
+                    </h2>
+                    <span className="text-primary opacity-0 group-hover:opacity-100
+                      transition-opacity duration-300 flex-shrink-0">
+                      <ArrowUpRight className="w-5 h-5" />
+                    </span>
                   </div>
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">{article.description}</p>
+                  <time className="flex items-center gap-2 text-sm text-gray-500">
+                    <Calendar className="w-4 h-4" />
+                    {article.date}
+                  </time>
                 </div>
               </article>
             ))}

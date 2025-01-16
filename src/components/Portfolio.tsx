@@ -8,15 +8,6 @@ const Portfolio = () => {
 
   return (
     <section className="py-16 bg-background relative overflow-hidden">
-      {/* Pattern Background */}
-      <div className="absolute inset-0 opacity-5 rotate-45" 
-        style={{
-          backgroundImage: `url('/lovable-uploads/95f03601-cf4d-43c4-a569-1aa7d06c7d87.png')`,
-          backgroundSize: '400px',
-          backgroundRepeat: 'repeat',
-        }}
-      />
-      
       <div className="container mx-auto px-4 relative">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-4">Наши последние проекты</h2>
