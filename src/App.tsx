@@ -8,6 +8,7 @@ import PortfolioDetail from "./pages/PortfolioDetail";
 import ArticleDetail from "./pages/ArticleDetail";
 import PortfolioPage from "./pages/PortfolioPage";
 import ContentHubPage from "./pages/ContentHubPage";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -17,13 +18,18 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/portfolio/:id" element={<PortfolioDetail />} />
-          <Route path="/article/:id" element={<ArticleDetail />} />
-          <Route path="/content-hub" element={<ContentHubPage />} />
-        </Routes>
+        <div className="flex flex-col min-h-screen">
+          <div className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+              <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+              <Route path="/article/:id" element={<ArticleDetail />} />
+              <Route path="/content-hub" element={<ContentHubPage />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

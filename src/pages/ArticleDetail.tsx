@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Tag, Share2, Bookmark, ThumbsUp, ArrowRight } from "lucide-react";
 import { Loading } from "@/components/ui/loading";
 import { useState } from "react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
-// Mock articles data (this should match the data in ContentHub.tsx)
 const articles = [
   {
     id: 1,
@@ -51,9 +52,6 @@ const ArticleDetail = () => {
   const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
   const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
   
-  // Simulate loading
-  setTimeout(() => setIsLoading(false), 1000);
-
   if (isLoading) {
     return <Loading />;
   }
@@ -63,19 +61,20 @@ const ArticleDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background py-16">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      <div className="container mx-auto px-4 py-16">
         <Button 
           variant="ghost" 
-          onClick={() => navigate("/content-hub")}
+          onClick={() => navigate("/")}
           className="mb-8"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Назад
+          На главную
         </Button>
 
         <article className="max-w-4xl mx-auto">
-          {/* Header */}
           <header className="mb-8">
             <div className="flex flex-wrap gap-2 mb-4">
               {currentArticle.tags.map((tag, index) => (
@@ -112,7 +111,6 @@ const ArticleDetail = () => {
             </div>
           </header>
 
-          {/* Main Image */}
           <div className="relative aspect-video mb-12 rounded-xl overflow-hidden">
             <img
               src={currentArticle.image}
@@ -121,53 +119,44 @@ const ArticleDetail = () => {
             />
           </div>
 
-          {/* Content */}
           <div className="prose prose-lg max-w-none mb-12">
-            <p>{currentArticle.description}</p>
-            <h2>Введение</h2>
-            <p>В современном мире цифрового дизайна существует два основных типа графики: растровая и векторная. Каждый из них имеет свои особенности, преимущества и недостатки.</p>
+            <p className="text-lg leading-relaxed text-gray-700 mb-6">{currentArticle.description}</p>
             
-            <h2>Основные понятия</h2>
-            <p>Прежде чем углубляться в различия, давайте разберем основные термины и концепции, которые помогут лучше понять тему.</p>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Введение</h2>
+            <p className="text-lg leading-relaxed text-gray-700 mb-6">
+              В современном мире цифрового дизайна существует два основных типа графики: растровая и векторная. 
+              Каждый из них имеет свои особенности, преимущества и недостатки.
+            </p>
             
-            <h3>Что такое растровая графика?</h3>
-            <p>Растровые изображения состоят из пикселей — маленьких цветных квадратиков. Каждый пиксель имеет свой цвет и положение в изображении.</p>
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">Основные понятия</h2>
+            <p className="text-lg leading-relaxed text-gray-700 mb-6">
+              Прежде чем углубляться в различия, давайте разберем основные термины и концепции, 
+              которые помогут лучше понять тему.
+            </p>
             
-            <h3>Что такое векторная графика?</h3>
-            <p>Векторные изображения строятся с помощью математических формул, описывающих линии, кривые и фигуры.</p>
-            
-            <h2>Сравнительный анализ</h2>
-            <p>Давайте рассмотрим основные преимущества и недостатки каждого типа графики.</p>
-            
-            <table>
+            <table className="min-w-full border-collapse border border-gray-200 mb-8">
               <thead>
-                <tr>
-                  <th>Критерий</th>
-                  <th>Растровая графика</th>
-                  <th>Векторная графика</th>
+                <tr className="bg-gray-50">
+                  <th className="border border-gray-200 px-6 py-4 text-left">Критерий</th>
+                  <th className="border border-gray-200 px-6 py-4 text-left">Растровая графика</th>
+                  <th className="border border-gray-200 px-6 py-4 text-left">Векторная графика</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Масштабирование</td>
-                  <td>Теряет качество</td>
-                  <td>Сохраняет качество</td>
+                  <td className="border border-gray-200 px-6 py-4">Масштабирование</td>
+                  <td className="border border-gray-200 px-6 py-4">Теряет качество</td>
+                  <td className="border border-gray-200 px-6 py-4">Сохраняет качество</td>
                 </tr>
                 <tr>
-                  <td>Размер файла</td>
-                  <td>Больше</td>
-                  <td>Меньше</td>
-                </tr>
-                <tr>
-                  <td>Детализация</td>
-                  <td>Высокая</td>
-                  <td>Средняя</td>
+                  <td className="border border-gray-200 px-6 py-4">Размер файла</td>
+                  <td className="border border-gray-200 px-6 py-4">Больше</td>
+                  <td className="border border-gray-200 px-6 py-4">Меньше</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          {/* Navigation between articles */}
           <div className="flex justify-between items-center mt-12 border-t pt-8">
             {prevArticle ? (
               <Button
@@ -199,6 +188,8 @@ const ArticleDetail = () => {
           </div>
         </article>
       </div>
+      
+      <Footer />
     </div>
   );
 };
