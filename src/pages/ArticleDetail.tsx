@@ -67,7 +67,7 @@ const ArticleDetail = () => {
       <div className="container mx-auto px-4">
         <Button 
           variant="ghost" 
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/content-hub")}
           className="mb-8"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
