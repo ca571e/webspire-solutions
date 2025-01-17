@@ -41,7 +41,7 @@ const ContentHub = () => {
   const navigate = useNavigate();
   
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-4">Контент-хаб</h1>
