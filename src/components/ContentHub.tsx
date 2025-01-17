@@ -1,5 +1,6 @@
 import { Calendar, Tag, ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const articles = [
   {
@@ -50,9 +51,12 @@ const ContentHub = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article) => (
-              <article 
-                key={article.id} 
-                className="group bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300
+              <motion.article 
+                key={article.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="group bg-white rounded-xl overflow-hidden shadow-lg
                   hover:shadow-xl hover:-translate-y-1 cursor-pointer"
                 onClick={() => navigate(`/article/${article.id}`)}
               >
@@ -94,7 +98,7 @@ const ContentHub = () => {
                     {article.date}
                   </time>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
         </div>
