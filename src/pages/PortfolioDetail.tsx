@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { portfolioData } from "@/data/portfolio";
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
+import PortfolioCollage from "@/components/PortfolioCollage";
 
 const PortfolioDetail = () => {
   const { id } = useParams();
@@ -57,6 +58,9 @@ const PortfolioDetail = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Назад к проектам
         </Button>
+
+        {/* Project Collage */}
+        <PortfolioCollage images={currentProject.gallery} />
 
         {/* Project Details */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
