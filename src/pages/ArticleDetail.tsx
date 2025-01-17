@@ -197,7 +197,6 @@ const ArticleDetail = () => {
         </article>
       </div>
       
-      <Footer />
     </div>
   );
 };
