@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Tag, Share2, Bookmark, ThumbsUp, ArrowRight } from "lucide-react";
 import { Loading } from "@/components/ui/loading";
 import { useState } from "react";
+import { useEffect } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -45,13 +46,19 @@ const ArticleDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-  
-  // Find current article and adjacent articles
+
   const currentIndex = articles.findIndex(article => article.id === Number(id));
   const currentArticle = articles[currentIndex];
   const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
   const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
-  
+
+  // Добавляем useEffect
+  useEffect(() => {
+    if (currentArticle) {
+      setIsLoading(false);
+    }
+  }, [currentArticle]);
+
   if (isLoading) {
     return <Loading />;
   }
@@ -59,6 +66,7 @@ const ArticleDetail = () => {
   if (!currentArticle) {
     return <div>Article not found</div>;
   }
+
 
   return (
     <div className="min-h-screen bg-background">
