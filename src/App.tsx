@@ -8,6 +8,7 @@ import PortfolioDetail from "./pages/PortfolioDetail";
 import ArticleDetail from "./pages/ArticleDetail";
 import PortfolioPage from "./pages/PortfolioPage";
 import ContentHubPage from "./pages/ContentHubPage";
+import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
               <Route path="/portfolio/:id" element={<PortfolioDetail />} />
               <Route path="/article/:id" element={<ArticleDetail />} />
               <Route path="/content-hub" element={<ContentHubPage />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </div>
           <Footer />
