@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Progress } from "./ui/progress";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
@@ -87,7 +86,29 @@ const Quiz = () => {
                   <Circle className={`w-6 h-6 text-primary ${currentStep === 3 ? 'animate-bounce' : ''}`} />
                   <span className="text-sm font-medium text-primary">ШАГ {currentStep} ИЗ 3</span>
                 </div>
-                <Progress value={progress} className="w-32" />
+                <div className="relative w-32 h-8">
+                  {/* Chessboard background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 rounded-lg overflow-hidden">
+                    <div className="absolute inset-0 grid grid-cols-8 h-full">
+                      {Array.from({ length: 8 }).map((_, i) => (
+                        <div key={i} className={`${i % 2 === 0 ? 'bg-gray-300/50' : 'bg-white/50'}`} />
+                      ))}
+                    </div>
+                  </div>
+                  {/* Pawn/Queen */}
+                  <div 
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
+                    style={{
+                      '--move-distance': `${progress / 100 * 128}px`,
+                    } as React.CSSProperties}
+                  >
+                    {progress === 100 ? (
+                      <Crown className="w-6 h-6 text-primary animate-pawn-promote" />
+                    ) : (
+                      <Circle className="w-6 h-6 text-primary animate-pawn-move" />
+                    )}
+                  </div>
+                </div>
               </div>
               <h2 className="text-4xl font-bold mb-12">
                 {currentStep === 1 && "ВЫБЕРИТЕ ТИП ВАШЕГО ПРОЕКТА"}
