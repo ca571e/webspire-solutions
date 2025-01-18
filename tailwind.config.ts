@@ -49,7 +49,7 @@ export default {
             transform: "translateX(0) scale(1)",
           },
           "50%": {
-            transform: "translateX(var(--move-distance)) scale(1.1)",
+            transform: "translateX(var(--move-distance)) scale(1.2)",
           },
           "100%": {
             transform: "translateX(var(--move-distance)) scale(1)",
@@ -60,7 +60,7 @@ export default {
             transform: "scale(1) rotate(0deg)",
           },
           "50%": {
-            transform: "scale(1.2) rotate(180deg)",
+            transform: "scale(1.5) rotate(180deg)",
           },
           "100%": {
             transform: "scale(1) rotate(360deg)",
@@ -70,8 +70,8 @@ export default {
       animation: {
         "fade-in-up": "fade-in-up 1.5s ease forwards",
         "show-right": "show-right 1s ease forwards",
-        "pawn-move": "pawn-move 0.5s ease forwards",
-        "pawn-promote": "pawn-promote 0.8s ease forwards",
+        "pawn-move": "pawn-move 0.8s ease-in-out forwards",
+        "pawn-promote": "pawn-promote 1s ease-in-out forwards",
       },
     },
   },

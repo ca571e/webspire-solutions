@@ -3,7 +3,7 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { useToast } from "./ui/use-toast";
-import { ShoppingBag, Users, Network, Database, MoreHorizontal, Circle, Crown } from "lucide-react";
+import { ShoppingBag, Users, Network, Database, MoreHorizontal, ChessKing, ChessPawn } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Quiz = () => {
@@ -27,8 +27,6 @@ const Quiz = () => {
     setIsSubmitted(true);
     
     try {
-      // Here you would typically make an API call
-      // For now we'll just simulate it with a timeout
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
@@ -59,7 +57,7 @@ const Quiz = () => {
           <Card className="p-8 border-2 border-primary/20 rounded-3xl">
             <CardContent className="flex flex-col items-center justify-center py-12">
               <div className="mb-8">
-                <Crown className="w-16 h-16 text-primary animate-bounce" />
+                <ChessKing className="w-16 h-16 text-primary animate-bounce" />
               </div>
               <h2 className="text-3xl font-bold text-center mb-4">Ваша заявка принята!</h2>
               <p className="text-gray-600 text-center mb-8">
@@ -83,7 +81,7 @@ const Quiz = () => {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <Circle className={`w-6 h-6 text-primary ${currentStep === 3 ? 'animate-bounce' : ''}`} />
+                  <ChessPawn className={`w-6 h-6 text-primary ${currentStep === 3 ? 'animate-bounce' : ''}`} />
                   <span className="text-sm font-medium text-primary">ШАГ {currentStep} ИЗ 3</span>
                 </div>
                 <div className="relative w-32 h-8">
@@ -95,7 +93,7 @@ const Quiz = () => {
                       ))}
                     </div>
                   </div>
-                  {/* Pawn/Queen */}
+                  {/* Pawn/King */}
                   <div 
                     className="absolute left-0 top-1/2 -translate-y-1/2 z-10"
                     style={{
@@ -103,9 +101,9 @@ const Quiz = () => {
                     } as React.CSSProperties}
                   >
                     {progress === 100 ? (
-                      <Crown className="w-6 h-6 text-primary animate-pawn-promote" />
+                      <ChessKing className="w-6 h-6 text-primary animate-pawn-promote" />
                     ) : (
-                      <Circle className="w-6 h-6 text-primary animate-pawn-move" />
+                      <ChessPawn className="w-6 h-6 text-primary animate-pawn-move" />
                     )}
                   </div>
                 </div>
