@@ -9,6 +9,7 @@ import ArticleDetail from "./pages/ArticleDetail";
 import PortfolioPage from "./pages/PortfolioPage";
 import ContentHubPage from "./pages/ContentHubPage";
 import Footer from "./components/Footer";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
