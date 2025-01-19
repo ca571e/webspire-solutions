@@ -15,7 +15,6 @@ const Index = () => {
       <Hero />
       <ProjectProcess />
       <Services />
-      <Team />
       <Portfolio />
       <Clients />
       <ContentHub />
