@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Loading } from "@/components/ui/loading";
 import { useState, useEffect } from "react";
-import Footer from "@/components/Footer";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 
 const articles = [
@@ -90,28 +90,74 @@ const ArticleDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-background"
+    >
       <Navbar />
-      <div className="container mx-auto px-4 py-16">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="container mx-auto px-4 py-16"
+      >
         <Button variant="ghost" onClick={() => navigate("/")} className="mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" /> На главную
         </Button>
 
-        <article className="max-w-4xl mx-auto">
-          <header className="mb-8">
+        <motion.article 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="max-w-4xl mx-auto"
+        >
+          <motion.header 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mb-8"
+          >
             <h1 className="text-4xl font-bold mb-6">{currentArticle.title}</h1>
-          </header>
+          </motion.header>
 
-          <div className="relative aspect-video mb-12 rounded-xl overflow-hidden">
-            <img src={currentArticle.image} alt={currentArticle.title} className="w-full h-full object-cover" />
-          </div>
+          <motion.div 
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="relative aspect-video mb-12 rounded-xl overflow-hidden"
+          >
+            <img 
+              src={currentArticle.image} 
+              alt={currentArticle.title} 
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
 
-          <div className="prose prose-lg max-w-none mb-12">{currentArticle.content}</div>
-        </article>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="prose prose-lg max-w-none mb-12"
+          >
+            {currentArticle.content}
+          </motion.div>
+        </motion.article>
 
-        <div className="flex justify-between mt-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="flex justify-between mt-8"
+        >
           {prevArticle && (
-            <Button variant="ghost" onClick={() => navigate(`/article/${prevArticle.id}`)} className="group flex items-center">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate(`/article/${prevArticle.id}`)} 
+              className="group flex items-center"
+            >
               <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
               <div>
                 <div className="text-sm text-gray-500">Предыдущая статья</div>
@@ -120,7 +166,11 @@ const ArticleDetail = () => {
             </Button>
           )}
           {nextArticle && (
-            <Button variant="ghost" onClick={() => navigate(`/article/${nextArticle.id}`)} className="group flex items-center">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate(`/article/${nextArticle.id}`)} 
+              className="group flex items-center"
+            >
               <div className="text-right">
                 <div className="text-sm text-gray-500">Следующая статья</div>
                 <div className="font-medium line-clamp-1">{nextArticle.title}</div>
@@ -128,9 +178,9 @@ const ArticleDetail = () => {
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

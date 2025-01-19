@@ -9,12 +9,12 @@ import { toast } from "sonner";
 import { portfolioData } from "@/data/portfolio";
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
 import PortfolioCollage from "@/components/PortfolioCollage";
+import { motion } from "framer-motion";
 
 const PortfolioDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const currentProject = portfolioData.find(p => p.id === Number(id));
   const currentIndex = portfolioData.findIndex(p => p.id === Number(id));
@@ -33,21 +33,39 @@ const PortfolioDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="relative h-[60vh] bg-black">
-        <img 
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-background"
+    >
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="relative h-[60vh] bg-black"
+      >
+        <motion.img 
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.7 }}
           src={currentProject.mainImage} 
           alt={currentProject.title}
           className="w-full h-full object-cover opacity-50"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div 
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
           <div className="text-center text-white">
             <h1 className="text-5xl font-bold mb-4">{currentProject.title}</h1>
             <p className="text-xl max-w-2xl mx-auto">{currentProject.description}</p>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="container mx-auto px-4 py-16">
         <Button 
@@ -59,10 +77,14 @@ const PortfolioDetail = () => {
           Назад к проектам
         </Button>
 
-        {/* Project Collage */}
-        <PortfolioCollage images={currentProject.gallery} />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <PortfolioCollage images={currentProject.gallery} />
+        </motion.div>
 
-        {/* Project Details */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <div className="md:col-span-2 space-y-8">
             <div className="prose prose-lg max-w-none">
@@ -153,7 +175,6 @@ const PortfolioDetail = () => {
           </div>
         </div>
 
-        {/* Gallery */}
         <div className="mb-16">
           <h3 className="text-2xl font-bold mb-6">Галерея проекта</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -183,8 +204,12 @@ const PortfolioDetail = () => {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="flex justify-between items-center"
+        >
           <Button
             variant="outline"
             onClick={() => navigate(`/portfolio/${prevProject.id}`)}
@@ -201,9 +226,9 @@ const PortfolioDetail = () => {
             {nextProject.title}
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
