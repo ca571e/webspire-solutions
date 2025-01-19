@@ -9,27 +9,52 @@ import { toast } from "sonner";
 import { portfolioData } from "@/data/portfolio";
 import { ArrowLeft, ArrowRight, ExternalLink, Github } from "lucide-react";
 import PortfolioCollage from "@/components/PortfolioCollage";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const PortfolioDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [direction, setDirection] = useState(0);
 
   const currentProject = portfolioData.find(p => p.id === Number(id));
   const currentIndex = portfolioData.findIndex(p => p.id === Number(id));
-  
+  const nextProject = portfolioData[(currentIndex + 1) % portfolioData.length];
+  const prevProject = portfolioData[(currentIndex - 1 + portfolioData.length) % portfolioData.length];
+
   if (!currentProject) {
     return <div>Project not found</div>;
   }
-
-  const nextProject = portfolioData[(currentIndex + 1) % portfolioData.length];
-  const prevProject = portfolioData[(currentIndex - 1 + portfolioData.length) % portfolioData.length];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success("Заявка успешно отправлена!");
     setFormData({ name: "", email: "", message: "" });
+  };
+
+  const handleNavigation = (projectId: number, dir: number) => {
+    setDirection(dir);
+    navigate(`/portfolio/${projectId}`);
+  };
+
+  const pageVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? -1000 : 1000,
+      opacity: 0
+    })
+  };
+
+  const pageTransition = {
+    type: "tween",
+    duration: 0.5
   };
 
   return (
@@ -40,34 +65,45 @@ const PortfolioDetail = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-background"
     >
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="relative h-[60vh] bg-black"
-      >
-        <motion.img 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.7 }}
-          src={currentProject.mainImage} 
-          alt={currentProject.title}
-          className="w-full h-full object-cover opacity-50"
-        />
+      <AnimatePresence mode="wait" custom={direction}>
         <motion.div 
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="absolute inset-0 flex items-center justify-center"
+          key={currentProject.id}
+          custom={direction}
+          variants={pageVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={pageTransition}
+          className="relative"
         >
-          <div className="text-center text-white">
-            <h1 className="text-5xl font-bold mb-4">{currentProject.title}</h1>
-            <p className="text-xl max-w-2xl mx-auto">{currentProject.description}</p>
-          </div>
-        </motion.div>
-      </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="relative h-[60vh] bg-black"
+          >
+            <motion.img 
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.7 }}
+              src={currentProject.mainImage} 
+              alt={currentProject.title}
+              className="w-full h-full object-cover opacity-50"
+            />
+            <motion.div 
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <div className="text-center text-white">
+                <h1 className="text-5xl font-bold mb-4">{currentProject.title}</h1>
+                <p className="text-xl max-w-2xl mx-auto">{currentProject.description}</p>
+              </div>
+            </motion.div>
+          </motion.div>
 
-      <div className="container mx-auto px-4 py-16">
+          <div className="container mx-auto px-4 py-16">
         <Button 
           variant="ghost" 
           onClick={() => navigate("/")}
@@ -204,30 +240,32 @@ const PortfolioDetail = () => {
           </div>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex justify-between items-center"
-        >
-          <Button
-            variant="outline"
-            onClick={() => navigate(`/portfolio/${prevProject.id}`)}
-            className="group"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            {prevProject.title}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => navigate(`/portfolio/${nextProject.id}`)}
-            className="group"
-          >
-            {nextProject.title}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="flex justify-between items-center"
+            >
+              <Button
+                variant="outline"
+                onClick={() => handleNavigation(prevProject.id, -1)}
+                className="group"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                {prevProject.title}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => handleNavigation(nextProject.id, 1)}
+                className="group"
+              >
+                {nextProject.title}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </motion.div>
+          </div>
         </motion.div>
-      </div>
+      </AnimatePresence>
     </motion.div>
   );
 };

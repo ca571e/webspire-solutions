@@ -69,6 +69,7 @@ const ArticleDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [direction, setDirection] = useState(0);
 
   const currentIndex = articles.findIndex(article => article.id === Number(id));
   const currentArticle = articles[currentIndex];
@@ -81,6 +82,11 @@ const ArticleDetail = () => {
     }
   }, [currentArticle]);
 
+  const handleNavigation = (articleId: number, dir: number) => {
+    setDirection(dir);
+    navigate(`/article/${articleId}`);
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -88,6 +94,26 @@ const ArticleDetail = () => {
   if (!currentArticle) {
     return <div>Article not found</div>;
   }
+
+  const pageVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? -1000 : 1000,
+      opacity: 0
+    })
+  };
+
+  const pageTransition = {
+    type: "tween",
+    duration: 0.5
+  };
 
   return (
     <motion.div 
@@ -98,88 +124,73 @@ const ArticleDetail = () => {
       className="min-h-screen bg-background"
     >
       <Navbar />
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="container mx-auto px-4 py-16"
-      >
-        <Button variant="ghost" onClick={() => navigate("/")} className="mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" /> На главную
-        </Button>
-
-        <motion.article 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="max-w-4xl mx-auto"
-        >
-          <motion.header 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mb-8"
-          >
-            <h1 className="text-4xl font-bold mb-6">{currentArticle.title}</h1>
-          </motion.header>
-
-          <motion.div 
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="relative aspect-video mb-12 rounded-xl overflow-hidden"
-          >
-            <img 
-              src={currentArticle.image} 
-              alt={currentArticle.title} 
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="prose prose-lg max-w-none mb-12"
-          >
-            {currentArticle.content}
-          </motion.div>
-        </motion.article>
-
+      <AnimatePresence mode="wait" custom={direction}>
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="flex justify-between mt-8"
+          key={currentArticle.id}
+          custom={direction}
+          variants={pageVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={pageTransition}
+          className="container mx-auto px-4 py-16"
         >
-          {prevArticle && (
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate(`/article/${prevArticle.id}`)} 
-              className="group flex items-center"
+          <Button variant="ghost" onClick={() => navigate("/")} className="mb-8">
+            <ArrowLeft className="mr-2 h-4 w-4" /> На главную
+          </Button>
+
+          <motion.article 
+            className="max-w-4xl mx-auto"
+          >
+            <motion.header className="mb-8">
+              <h1 className="text-4xl font-bold mb-6">{currentArticle.title}</h1>
+            </motion.header>
+
+            <motion.div 
+              className="relative aspect-video mb-12 rounded-xl overflow-hidden"
             >
-              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              <div>
-                <div className="text-sm text-gray-500">Предыдущая статья</div>
-                <div className="font-medium line-clamp-1">{prevArticle.title}</div>
-              </div>
-            </Button>
-          )}
-          {nextArticle && (
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate(`/article/${nextArticle.id}`)} 
-              className="group flex items-center"
-            >
-              <div className="text-right">
-                <div className="text-sm text-gray-500">Следующая статья</div>
-                <div className="font-medium line-clamp-1">{nextArticle.title}</div>
-              </div>
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          )}
+              <img 
+                src={currentArticle.image} 
+                alt={currentArticle.title} 
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+
+            <motion.div className="prose prose-lg max-w-none mb-12">
+              {currentArticle.content}
+            </motion.div>
+          </motion.article>
+
+          <motion.div className="flex justify-between mt-8">
+            {prevArticle && (
+              <Button 
+                variant="ghost" 
+                onClick={() => handleNavigation(prevArticle.id, -1)}
+                className="group flex items-center"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                <div>
+                  <div className="text-sm text-gray-500">Предыдущая статья</div>
+                  <div className="font-medium line-clamp-1">{prevArticle.title}</div>
+                </div>
+              </Button>
+            )}
+            {nextArticle && (
+              <Button 
+                variant="ghost" 
+                onClick={() => handleNavigation(nextArticle.id, 1)}
+                className="group flex items-center"
+              >
+                <div className="text-right">
+                  <div className="text-sm text-gray-500">Следующая статья</div>
+                  <div className="font-medium line-clamp-1">{nextArticle.title}</div>
+                </div>
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            )}
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 };
