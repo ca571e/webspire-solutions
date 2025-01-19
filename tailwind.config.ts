@@ -44,34 +44,21 @@ export default {
             width: "0",
           },
         },
-        "pawn-move": {
+        "chess-piece-appear": {
           "0%": {
-            transform: "translateX(0) scale(1)",
-          },
-          "50%": {
-            transform: "translateX(var(--move-distance)) scale(1.1)",
+            opacity: "0",
+            transform: "scale(0.5) rotate(-180deg)",
           },
           "100%": {
-            transform: "translateX(var(--move-distance)) scale(1)",
-          }
-        },
-        "pawn-promote": {
-          "0%": {
+            opacity: "1",
             transform: "scale(1) rotate(0deg)",
-          },
-          "50%": {
-            transform: "scale(1.2) rotate(180deg)",
-          },
-          "100%": {
-            transform: "scale(1) rotate(360deg)",
           }
         }
       },
       animation: {
         "fade-in-up": "fade-in-up 1.5s ease forwards",
         "show-right": "show-right 1s ease forwards",
-        "pawn-move": "pawn-move 0.5s ease forwards",
-        "pawn-promote": "pawn-promote 0.8s ease forwards",
+        "chess-piece-appear": "chess-piece-appear 0.6s ease-out forwards",
       },
     },
   },

@@ -1,70 +1,89 @@
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
-import { portfolioData } from "@/data/portfolio";
-import { ArrowRight } from "lucide-react";
+const teamMembers = [
+  {
+    name: "Даниелян Карен",
+    position: "CEO",
+    image: "/team/karen.jpg",
+  },
+  {
+    name: "Вербицкий Эдуард",
+    position: "CTO",
+    image: "/team/eduard.jpg",
+  },
+  {
+    name: "Ромашкан Данил",
+    position: "Lead Developer",
+    image: "/team/Danya.jpg",
+  },
+  {
+    name: "Вербицкий Алексей",
+    position: "Designer",
+    image: "/team/Lexa.jpg",
+  },
+  {
+    name: "Данюшис Максим",
+    position: "Marketing",
+    image: "/team/Max.jpg",
+  },
+  {
+    name: "Шишковец Владислав",
+    position: "Product Manager",
+    image: "/team/Vlad.jpg",
+  },
+  {
+    name: "Авагян Давид",
+    position: "Developer",
+    image: "/team/David.jpg",
+  },
+  {
+    name: "Османов Эдем",
+    position: "UX Designer",
+    image: "/team/Edem.jpg",
+  },
+  {
+    name: "Шагин Виталий",
+    position: "Support Specialist",
+    image: "/team/Vitalya.jpg",
+  },
+];
 
-const Portfolio = () => {
-  const navigate = useNavigate();
-
+const Team = () => {
   return (
-    <section className="py-16 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-4 relative">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4">Наши последние проекты</h2>
-          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Каждый проект - это уникальное решение, созданное с учетом потребностей клиента
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioData.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="group cursor-pointer bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg
-                  transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-                onClick={() => navigate(`/portfolio/${project.id}`)}
-              >
-                <div className="relative overflow-hidden aspect-video">
-                  <img
-                    src={project.mainImage}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500
-                      group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-bold text-center mb-4">Наша команда</h1>
+        <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+          Профессионалы, которые делают ваши проекты особенными
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {teamMembers.map((member, index) => (
+            <div 
+              key={index}
+              className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300
+                hover:-translate-y-2 hover:shadow-xl"
+            >
+              <div className="aspect-square overflow-hidden">
+                <img 
+                  src={member.image} 
+                  alt={member.name}
+                  className="w-full h-full object-cover transition-transform duration-500
+                    group-hover:scale-110"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#ca571e]/90 via-[#ca571e]/40 to-transparent 
+                opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0
+                  transition-transform duration-300">
+                  <h3 className="text-white font-semibold text-xl mb-1">{member.name}</h3>
+                  <p className="text-white/90">{member.position}</p>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary
-                        transition-colors duration-300">{project.title}</h3>
-                      <p className="text-gray-600 text-sm line-clamp-2">{project.description}</p>
-                    </div>
-                    <span className="text-primary opacity-0 group-hover:opacity-100
-                      transition-opacity duration-300">
-                      <ArrowRight className="w-6 h-6" />
-                    </span>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tech.split(", ").map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-export default Portfolio;
+export default Team;

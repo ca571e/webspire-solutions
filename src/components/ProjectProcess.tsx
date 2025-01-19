@@ -1,31 +1,41 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, Crown, Circle } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const steps = [
   {
     title: "Формирование идеи",
     description: "Мы тщательно анализируем рынок и потребности клиента, создавая уникальную концепцию будущего проекта.",
-    image: "/placeholder.svg"
+    image: "/placeholder.svg",
+    icon: "./figure/Pawn.png",
+    iconClass: "w-8 h-8 object-contain"
   },
   {
     title: "Дизайн и прототипирование",
     description: "Разрабатываем стильный и удобный интерфейс, создаем интерактивные прототипы для согласования.",
-    image: "/placeholder.svg"
+    image: "/placeholder.svg",
+    icon: "./figure/Knight.png",
+    iconClass: "w-8 h-8 object-contain"
   },
   {
     title: "Разработка",
     description: "Воплощаем проект в жизнь с использованием современных технологий и фреймворков.",
-    image: "/placeholder.svg"
+    image: "/placeholder.svg",
+    icon: "./figure/Rook.png",
+    iconClass: "w-8 h-8 object-contain"
   },
   {
     title: "Тестирование",
     description: "Проводим всестороннее тестирование, чтобы гарантировать высокое качество и надежность.",
-    image: "/placeholder.svg"
+    image: "/placeholder.svg",
+    icon: "./figure/Queen.png",
+    iconClass: "w-8 h-8 object-contain"
   },
   {
     title: "Запуск и поддержка",
     description: "Запускаем проект и предоставляем техническую поддержку для успешного развития.",
-    image: "/placeholder.svg"
+    image: "/placeholder.svg",
+    icon: "./figure/King.png",
+    iconClass: "w-8 h-8 object-contain"
   }
 ];
 
@@ -42,35 +52,32 @@ const ProjectProcess = () => {
             {steps.map((step, index) => (
               <div 
                 key={index}
-                className={`flex flex-col items-center cursor-pointer transition-all ${
-                  index === activeStep ? 'scale-110' : 'opacity-50'
+                className={`flex flex-col items-center cursor-pointer transition-all duration-300 ${
+                  index === activeStep ? 'scale-110' : 'opacity-50 scale-95'
                 }`}
                 onClick={() => setActiveStep(index)}
               >
                 <div 
-                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 relative ${
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 relative overflow-hidden ${
                     index === activeStep ? 'bg-primary text-white' : 'bg-gray-200'
                   }`}
-                  style={{
-                    '--move-distance': `${(index - activeStep) * 100}%`
-                  } as React.CSSProperties}
                 >
-                  {index === steps.length - 1 && activeStep === index ? (
-                    <Crown className="w-6 h-6 animate-pawn-promote" />
-                  ) : (
-                    <Circle 
-                      className={`w-6 h-6 ${
-                        index === activeStep ? 'animate-pawn-move' : ''
-                      }`}
-                    />
-                  )}
+                  <img 
+                    src={step.icon} 
+                    alt={step.title}
+                    className={`${step.iconClass} transition-all duration-300 ${
+                      index === activeStep 
+                        ? 'brightness-0 invert animate-chess-piece-appear opacity-100' 
+                        : 'opacity-0'
+                    }`}
+                  />
                 </div>
-                <p className="text-sm text-center">{step.title.split(' ')[0]}</p>
+                <p className="text-sm text-center font-medium">{step.title.split(' ')[0]}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-8 transition-all">
+          <div className="bg-gray-50 rounded-lg p-8 transition-all duration-300">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <img 
                 src={steps[activeStep].image} 
