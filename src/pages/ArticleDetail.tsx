@@ -130,7 +130,6 @@ const ArticleDetail = () => {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
