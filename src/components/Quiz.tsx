@@ -7,21 +7,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import QuizStep from "./quiz/QuizStep";
 import QuizSuccess from "./quiz/QuizSuccess";
 import QuizProgress from "./quiz/QuizProgress";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [progress, setProgress] = useState(33);
+  const [progress, setProgress] = useState(25);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
   const handleNext = () => {
     setCurrentStep((prev) => prev + 1);
-    setProgress((prev) => Math.min(prev + 33, 100));
+    setProgress((prev) => Math.min(prev + 25, 100));
   };
 
   const handlePrev = () => {
     setCurrentStep((prev) => prev - 1);
-    setProgress((prev) => Math.max(prev - 33, 33));
+    setProgress((prev) => Math.max(prev - 25, 25));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -84,16 +86,27 @@ const Quiz = () => {
         { value: "budget4", label: "Более 500 000 ₽" },
       ],
     },
+    {
+      title: "РАССКАЖИТЕ О СЕБЕ",
+      type: "form",
+      fields: [
+        { id: "name", label: "Ваше имя", type: "text", placeholder: "Иван Иванов" },
+        { id: "phone", label: "Номер телефона", type: "tel", placeholder: "+7 (999) 999-99-99" },
+        { id: "details", label: "Подробнее о проекте", type: "textarea", placeholder: "Расскажите подробнее о вашей идее..." },
+      ],
+    },
   ];
 
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 max-w-5xl">
-        <Card className="p-8 border-2 border-primary/20 rounded-3xl">
+        <Card className="p-8 border-2 border-primary/20 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300">
           <CardContent>
             <div className="mb-8">
               <QuizProgress currentStep={currentStep} progress={progress} />
-              <h2 className="text-4xl font-bold mb-12">{steps[currentStep - 1].title}</h2>
+              <h2 className="text-4xl font-bold mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                {steps[currentStep - 1].title}
+              </h2>
             </div>
 
             <AnimatePresence mode="wait">
@@ -106,21 +119,59 @@ const Quiz = () => {
                 onSubmit={handleSubmit}
                 className="space-y-8"
               >
-                <QuizStep step={currentStep} content={steps[currentStep - 1]} />
+                {steps[currentStep - 1].type === "form" ? (
+                  <div className="space-y-6">
+                    {steps[currentStep - 1].fields.map((field) => (
+                      <div key={field.id} className="space-y-2">
+                        <label htmlFor={field.id} className="block text-sm font-medium text-gray-700">
+                          {field.label}
+                        </label>
+                        {field.type === "textarea" ? (
+                          <Textarea
+                            id={field.id}
+                            placeholder={field.placeholder}
+                            className="min-h-[120px]"
+                          />
+                        ) : (
+                          <Input
+                            id={field.id}
+                            type={field.type}
+                            placeholder={field.placeholder}
+                            className="w-full"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <QuizStep step={currentStep} content={steps[currentStep - 1]} />
+                )}
 
-                <div className="flex justify-between">
+                <div className="flex justify-between pt-6">
                   {currentStep > 1 && (
-                    <Button type="button" variant="outline" onClick={handlePrev} className="px-8">
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={handlePrev} 
+                      className="px-8 hover:bg-primary/5"
+                    >
                       Назад
                     </Button>
                   )}
                   <div className="ml-auto">
-                    {currentStep < 3 ? (
-                      <Button type="button" onClick={handleNext} className="px-8">
+                    {currentStep < steps.length ? (
+                      <Button 
+                        type="button" 
+                        onClick={handleNext} 
+                        className="px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                      >
                         Далее
                       </Button>
                     ) : (
-                      <Button type="submit" className="px-8">
+                      <Button 
+                        type="submit" 
+                        className="px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                      >
                         Отправить заявку
                       </Button>
                     )}
