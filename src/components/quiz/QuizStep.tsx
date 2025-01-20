@@ -5,20 +5,31 @@ interface QuizStepProps {
   step: number;
   content: {
     title: string;
-    options: Array<{
+    type?: string;
+    options?: Array<{
       value: string;
       label: string;
       icon?: React.ReactNode;
+    }>;
+    fields?: Array<{
+      id: string;
+      label: string;
+      type: string;
+      placeholder: string;
     }>;
   };
 }
 
 const QuizStep = ({ step, content }: QuizStepProps) => {
+  if (content.type === "form") {
+    return null; // Form fields are handled directly in Quiz component
+  }
+
   return (
     <div className="space-y-4">
       <h3 className="text-xl font-semibold">{content.title}</h3>
-      <RadioGroup defaultValue={content.options[0].value} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {content.options.map((option) => (
+      <RadioGroup defaultValue={content.options?.[0].value} className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {content.options?.map((option) => (
           <div key={option.value} className="relative">
             <RadioGroupItem
               value={option.value}
