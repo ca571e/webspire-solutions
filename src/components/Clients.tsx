@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -52,9 +53,23 @@ const Clients = () => {
   );
 
   return (
-    <section className="py-16 bg-white">
+    <motion.section 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="py-16 bg-white"
+    >
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Наши клиенты</h2>
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl font-bold text-center mb-12"
+        >
+          Наши клиенты
+        </motion.h2>
         
         <Carousel
           opts={{
@@ -67,16 +82,26 @@ const Clients = () => {
           <CarouselContent>
             {clientsData.map((client, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-1">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="p-1"
+                >
                   <Card className="overflow-hidden group">
                     <CardContent className="p-6">
-                      <div className="aspect-video mb-4 overflow-hidden rounded-lg">
+                      <motion.div 
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                        className="aspect-video mb-4 overflow-hidden rounded-lg"
+                      >
                         <img
                           src={client.logo}
                           alt={client.name}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="w-full h-full object-cover"
                         />
-                      </div>
+                      </motion.div>
                       <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
                         {client.name}
                       </h3>
@@ -85,7 +110,7 @@ const Clients = () => {
                       </p>
                     </CardContent>
                   </Card>
-                </div>
+                </motion.div>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -93,7 +118,7 @@ const Clients = () => {
           <CarouselNext />
         </Carousel>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

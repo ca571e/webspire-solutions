@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 
 const services = [
@@ -44,40 +45,71 @@ const Services = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <motion.section 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="py-16 bg-gray-50"
+    >
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-12">Наши Услуги</h1>
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl font-bold text-center mb-12"
+        >
+          Наши Услуги
+        </motion.h1>
         
         <div className="space-y-4 max-w-3xl mx-auto">
           {services.map((service, index) => (
-            <Collapsible 
+            <motion.div
               key={index}
-              open={openItems.includes(index)}
-              onOpenChange={() => toggleItem(index)}
-              className="bg-white rounded-lg shadow-sm"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <CollapsibleTrigger className="w-full p-6 flex justify-between items-center text-left">
-                <span className="text-xl font-semibold">{service.title}</span>
-                <i className={`bx ${openItems.includes(index) ? 'bx-minus' : 'bx-plus'} text-2xl`}></i>
-              </CollapsibleTrigger>
-              
-              <CollapsibleContent className="p-6 pt-0">
-                <p className="text-gray-600 mb-6">{service.description}</p>
+              <Collapsible 
+                open={openItems.includes(index)}
+                onOpenChange={() => toggleItem(index)}
+                className="bg-white rounded-lg shadow-sm"
+              >
+                <CollapsibleTrigger className="w-full p-6 flex justify-between items-center text-left">
+                  <span className="text-xl font-semibold">{service.title}</span>
+                  <motion.i 
+                    animate={{ rotate: openItems.includes(index) ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`bx ${openItems.includes(index) ? 'bx-minus' : 'bx-plus'} text-2xl`}
+                  />
+                </CollapsibleTrigger>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {service.technologies.map((tech, techIndex) => (
-                    <div key={techIndex} className="p-4 bg-gray-50 rounded-lg text-center">
-                      <i className={`bx ${tech.icon} text-3xl text-primary mb-2`}></i>
-                      <p className="text-sm">{tech.name}</p>
-                    </div>
-                  ))}
-                </div>
-              </CollapsibleContent>
-            </Collapsible>
+                <CollapsibleContent className="p-6 pt-0">
+                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {service.technologies.map((tech, techIndex) => (
+                      <motion.div
+                        key={techIndex}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: techIndex * 0.1 }}
+                        className="p-4 bg-gray-50 rounded-lg text-center"
+                      >
+                        <i className={`bx ${tech.icon} text-3xl text-primary mb-2`}></i>
+                        <p className="text-sm">{tech.name}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
