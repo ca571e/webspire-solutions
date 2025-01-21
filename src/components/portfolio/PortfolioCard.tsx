@@ -16,35 +16,28 @@ interface PortfolioCardProps {
 const PortfolioCard = ({ project, index, onClick }: PortfolioCardProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="group cursor-pointer bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg
-        transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+      whileHover={{ y: -10 }}
+      className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow-lg
+        hover:shadow-2xl transition-all duration-500"
       onClick={onClick}
     >
-      <div className="relative overflow-hidden aspect-video">
+      <div className="relative aspect-video overflow-hidden">
         <img
           src={project.mainImage}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500
+          className="w-full h-full object-cover transition-transform duration-700
             group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-      </div>
-      <div className="p-6">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-xl font-semibold mb-2 group-hover:text-primary
-              transition-colors duration-300">{project.title}</h3>
-            <p className="text-gray-600 text-sm line-clamp-2">{project.description}</p>
-          </div>
-          <span className="text-primary opacity-0 group-hover:opacity-100
-            transition-opacity duration-300">
-            <ArrowRight className="w-6 h-6" />
-          </span>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent
+          opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white transform translate-y-full
+          group-hover:translate-y-0 transition-transform duration-500">
+          <h3 className="text-base md:text-xl font-semibold mb-2">{project.title}</h3>
+          <p className="text-sm opacity-90 line-clamp-2">{project.description}</p>
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
+      </div>
+      <div className="p-4 md:p-6">
+        <div className="flex flex-wrap gap-2">
           {project.tech.split(", ").map((tech, techIndex) => (
             <span
               key={techIndex}

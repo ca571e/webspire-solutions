@@ -2,13 +2,13 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="h-[90vh] flex flex-col justify-between items-start px-[10%] relative py-20">
+    <section className="min-h-[90vh] flex flex-col justify-between items-start px-4 md:px-[10%] relative py-10 md:py-20">
       {/* Semi-transparent hashtag background */}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.1 }}
         transition={{ duration: 1 }}
-        className="absolute inset-0 flex items-center justify-center text-[40rem] font-bold text-primary/10 select-none"
+        className="absolute inset-0 flex items-center justify-center text-[20rem] md:text-[40rem] font-bold text-primary/10 select-none overflow-hidden"
       >
         #
       </motion.div>
@@ -18,12 +18,12 @@ const Hero = () => {
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 max-w-[600px]"
+        className="relative z-10 max-w-[600px] w-full"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-primary">
+        <h2 className="text-3xl md:text-5xl font-bold text-primary">
           Innovative Solutions
         </h2>
-        <p className="mt-4 text-lg text-black/70">
+        <p className="mt-4 text-base md:text-lg text-black/70">
           Transform your ideas into reality
         </p>
       </motion.div>
@@ -33,12 +33,12 @@ const Hero = () => {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="relative z-10 self-center text-center max-w-[800px]"
+        className="relative z-10 self-center text-center max-w-[800px] w-full px-4"
       >
-        <h1 className="text-5xl md:text-6xl font-bold text-primary mb-5">
+        <h1 className="text-4xl md:text-6xl font-bold text-primary mb-5">
           Web Solutions for <br /> Your Business
         </h1>
-        <h3 className="text-2xl md:text-3xl font-medium text-black">
+        <h3 className="text-xl md:text-3xl font-medium text-black">
           innovate / Create / Inspire
         </h3>
       </motion.div>
@@ -48,18 +48,18 @@ const Hero = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
-        className="relative z-10 w-full flex justify-between items-end"
+        className="relative z-10 w-full flex flex-col md:flex-row justify-between items-center md:items-end gap-6"
       >
-        <div className="max-w-[600px]">
-          <h2 className="text-4xl md:text-5xl font-bold text-primary">
+        <div className="max-w-[600px] text-center md:text-left">
+          <h2 className="text-3xl md:text-5xl font-bold text-primary">
             Digital Excellence
           </h2>
-          <p className="mt-4 text-lg text-black/70">
+          <p className="mt-4 text-base md:text-lg text-black/70">
             Elevate your digital presence
           </p>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex gap-4 md:gap-6">
           <motion.a
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
