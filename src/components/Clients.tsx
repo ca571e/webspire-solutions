@@ -1,55 +1,38 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "./ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
 const clientsData = [
   {
     name: "TechCorp",
-    description: "Разработка инновационных IT-решений для бизнеса. Успешно реализовали проект корпоративного портала.",
     logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=2428&auto=format&fit=crop",
   },
   {
     name: "FinanceHub",
-    description: "Ведущая финансовая компания. Создали современную платформу для онлайн-банкинга.",
     logo: "https://images.unsplash.com/photo-1554774853-719586f82d77?q=80&w=2370&auto=format&fit=crop",
   },
   {
     name: "EduTech",
-    description: "Образовательная платформа. Разработали систему онлайн-обучения с интерактивными элементами.",
     logo: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2370&auto=format&fit=crop",
   },
   {
     name: "HealthCare Plus",
-    description: "Медицинский центр. Внедрили систему электронных медицинских карт.",
     logo: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2370&auto=format&fit=crop",
   },
   {
     name: "RetailPro",
-    description: "Сеть магазинов. Разработали систему управления товарными запасами.",
     logo: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2370&auto=format&fit=crop",
   },
   {
     name: "MediaGroup",
-    description: "Медиа-холдинг. Создали платформу для стриминга контента.",
     logo: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?q=80&w=2370&auto=format&fit=crop",
-  },
-  {
-    name: "LogisticsPro",
-    description: "Логистическая компания. Внедрили систему отслеживания грузов.",
-    logo: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?q=80&w=2370&auto=format&fit=crop",
-  },
-  {
-    name: "GreenEnergy",
-    description: "Компания в сфере возобновляемой энергии. Разработали систему мониторинга.",
-    logo: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2370&auto=format&fit=crop",
   }
 ];
 
 const Clients = () => {
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+    Autoplay({ delay: 2000, stopOnInteraction: false, loop: true })
   );
 
   return (
@@ -73,49 +56,44 @@ const Clients = () => {
         
         <Carousel
           opts={{
-            align: "start",
+            align: "center",
             loop: true,
+            skipSnaps: true,
+            dragFree: true,
           }}
           plugins={[plugin.current]}
           className="w-full max-w-7xl mx-auto"
         >
-          <CarouselContent>
+          <CarouselContent className="py-4">
             {clientsData.map((client, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4 pl-4">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-1"
+                  className="relative aspect-square rounded-lg overflow-hidden group"
                 >
-                  <Card className="overflow-hidden group">
-                    <CardContent className="p-6">
-                      <motion.div 
-                        whileHover={{ scale: 1.05 }}
-                        transition={{ duration: 0.3 }}
-                        className="aspect-video mb-4 overflow-hidden rounded-lg"
-                      >
-                        <img
-                          src={client.logo}
-                          alt={client.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </motion.div>
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full"
+                  >
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                      <p className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         {client.name}
-                      </h3>
-                      <p className="text-gray-600 text-sm line-clamp-2">
-                        {client.description}
                       </p>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </motion.div>
                 </motion.div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
       </div>
     </motion.section>
