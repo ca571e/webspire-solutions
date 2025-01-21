@@ -32,7 +32,7 @@ const clientsData = [
 
 const Clients = () => {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false, loop: true })
+    Autoplay({ delay: 2000, stopOnInteraction: false })
   );
 
   return (
@@ -57,7 +57,6 @@ const Clients = () => {
         <Carousel
           opts={{
             align: "center",
-            loop: true,
             skipSnaps: true,
             dragFree: true,
           }}
