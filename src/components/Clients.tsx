@@ -49,7 +49,7 @@ const Clients = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-12"
+          className="text-4xl font-bold text-center mb-12 text-secondary"
         >
           Наши клиенты
         </motion.h2>
@@ -71,20 +71,20 @@ const Clients = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative aspect-square rounded-lg overflow-hidden group"
+                  className="relative aspect-square rounded-lg overflow-hidden shadow-md group hover:shadow-xl transition-shadow duration-300"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full h-full"
+                    className="w-full h-full bg-white p-4"
                   >
                     <img
                       src={client.logo}
                       alt={client.name}
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                      className="w-full h-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                      <p className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300 flex items-center justify-center">
+                      <p className="text-secondary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         {client.name}
                       </p>
                     </div>
