@@ -17,7 +17,7 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-8 md:mb-16"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
               Давайте создадим что-то amazing вместе
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
@@ -39,14 +39,14 @@ const Contact = () => {
           >
             {/* Phone Card */}
             <motion.div 
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-2 border-primary/10 group cursor-pointer"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="bg-white p-6 md:p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              <div className="w-12 md:w-14 h-12 md:h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 md:w-14 h-12 md:h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-6">
                 <Phone className="w-6 md:w-7 h-6 md:h-7 text-primary" />
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2">Телефон</h3>
-              <a href="tel:+79001234567" className="text-gray-600 hover:text-primary transition-colors flex items-center gap-2 group-hover:text-primary">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-900">Телефон</h3>
+              <a href="tel:+79001234567" className="text-gray-600 hover:text-primary transition-colors flex items-center gap-2 group">
                 +7 900 123-45-67
                 <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
@@ -57,14 +57,14 @@ const Contact = () => {
 
             {/* Email Card */}
             <motion.div 
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-2 border-primary/10 group cursor-pointer"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="bg-white p-6 md:p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              <div className="w-12 md:w-14 h-12 md:h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 md:w-14 h-12 md:h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-6">
                 <Mail className="w-6 md:w-7 h-6 md:h-7 text-primary" />
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2">Email</h3>
-              <a href="mailto:info@c571e.com" className="text-gray-600 hover:text-primary transition-colors flex items-center gap-2 group-hover:text-primary">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-900">Email</h3>
+              <a href="mailto:info@c571e.com" className="text-gray-600 hover:text-primary transition-colors flex items-center gap-2 group">
                 info@c571e.com
                 <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
@@ -75,14 +75,14 @@ const Contact = () => {
 
             {/* Address Card */}
             <motion.div 
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border-2 border-primary/10 group cursor-pointer"
+              whileHover={{ scale: 1.02, y: -5 }}
+              className="bg-white p-6 md:p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              <div className="w-12 md:w-14 h-12 md:h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 md:w-14 h-12 md:h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-6">
                 <MapPin className="w-6 md:w-7 h-6 md:h-7 text-primary" />
               </div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2">Адрес</h3>
-              <p className="text-gray-600 flex items-center gap-2 group-hover:text-primary">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-900">Адрес</h3>
+              <p className="text-gray-600 flex items-center gap-2 group">
                 Москва, ул. Примерная, 123
                 <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
               </p>
@@ -103,7 +103,7 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center mb-8 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
               Обсудим ваш проект?
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
