@@ -8,35 +8,35 @@ const steps = [
     description: "Мы тщательно анализируем рынок и потребности клиента, создавая уникальную концепцию будущего проекта.",
     image: "/placeholder.svg",
     icon: "./figure/Pawn.png",
-    iconClass: "w-8 h-8 object-contain"
+    iconClass: "w-8 h-8 object-contain transition-all duration-300"
   },
   {
     title: "Дизайн и прототипирование",
     description: "Разрабатываем стильный и удобный интерфейс, создаем интерактивные прототипы для согласования.",
     image: "/placeholder.svg",
     icon: "./figure/Knight.png",
-    iconClass: "w-8 h-8 object-contain"
+    iconClass: "w-8 h-8 object-contain transition-all duration-300"
   },
   {
     title: "Разработка",
     description: "Воплощаем проект в жизнь с использованием современных технологий и фреймворков.",
     image: "/placeholder.svg",
     icon: "./figure/Rook.png",
-    iconClass: "w-8 h-8 object-contain"
+    iconClass: "w-8 h-8 object-contain transition-all duration-300"
   },
   {
     title: "Тестирование",
     description: "Проводим всестороннее тестирование, чтобы гарантировать высокое качество и надежность.",
     image: "/placeholder.svg",
     icon: "./figure/Queen.png",
-    iconClass: "w-8 h-8 object-contain"
+    iconClass: "w-8 h-8 object-contain transition-all duration-300"
   },
   {
     title: "Запуск и поддержка",
     description: "Запускаем проект и предоставляем техническую поддержку для успешного развития.",
     image: "/placeholder.svg",
     icon: "./figure/King.png",
-    iconClass: "w-8 h-8 object-contain"
+    iconClass: "w-8 h-8 object-contain transition-all duration-300"
   }
 ];
 
@@ -67,19 +67,19 @@ const ProjectProcess = () => {
             {steps.map((step, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
                 className={`flex flex-col items-center cursor-pointer transition-all duration-300 ${
-                  index === activeStep ? 'scale-110' : 'opacity-50 scale-95'
+                  index === activeStep ? 'scale-110' : 'scale-95'
                 }`}
                 onClick={() => setActiveStep(index)}
               >
                 <motion.div 
                   className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 relative overflow-hidden ${
-                    index === activeStep ? 'bg-primary text-white' : 'bg-gray-200'
+                    index === activeStep ? 'bg-primary' : 'bg-gray-200'
                   }`}
                   animate={{
                     scale: index === activeStep ? 1.1 : 1,
@@ -89,11 +89,10 @@ const ProjectProcess = () => {
                   <motion.img 
                     src={step.icon} 
                     alt={step.title}
-                    className={`${step.iconClass} transition-all duration-300`}
-                    initial={{ opacity: 0, rotate: -180 }}
+                    className={step.iconClass}
+                    initial={{ opacity: 1 }}
                     animate={{ 
-                      opacity: index === activeStep ? 1 : 0,
-                      rotate: index === activeStep ? 0 : -180
+                      filter: index === activeStep ? 'brightness(0) invert(1)' : 'none'
                     }}
                     transition={{ duration: 0.3 }}
                   />
