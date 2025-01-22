@@ -92,17 +92,13 @@ const Team = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent 
-                opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute bottom-0 left-0 right-0 p-4 md:p-6"
-                >
-                  <h3 className="text-white font-semibold text-lg md:text-xl mb-1">{member.name}</h3>
-                  <p className="text-white/90 text-sm md:text-base">{member.position}</p>
-                </motion.div>
+              <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="flex items-center justify-center h-full p-4 md:p-6">
+                  <div className="text-center">
+                    <h3 className="text-white font-semibold text-lg md:text-xl mb-1">{member.name}</h3>
+                    <p className="text-white/90 text-sm md:text-base">{member.position}</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
